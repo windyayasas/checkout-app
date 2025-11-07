@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 24, "column": 0}, "map": {"version":3,"sources":["file:///Users/windyayasas/Documents/GitHub/checkout-app/src/app/page.tsx"],"sourcesContent":["import { redirect } from 'next/navigation';\n\nexport default function Home() {\n  // In a real app, you'd check for an active session here.\n  // For now, we go straight to the dashboard as the login flow exists.\n  redirect('/dashboard');\n}\n"],"names":[],"mappings":";;;AAAA;AAAA;;AAEe,SAAS;IACtB,yDAAyD;IACzD,qEAAqE;IACrE,CAAA,GAAA,qLAAA,CAAA,WAAQ,AAAD,EAAE;AACX","debugId":null}}]
+}

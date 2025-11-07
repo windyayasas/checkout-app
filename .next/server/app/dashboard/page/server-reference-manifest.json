@@ -1,0 +1,16 @@
+{
+  "node": {
+    "40edb423074b1dc8b928a1d36de4249ca34e6ef139": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/ai/flows/suggest-grocery-details.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      }
+    }
+  },
+  "edge": {}
+}
