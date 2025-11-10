@@ -519,10 +519,22 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
     ]);
     async function onSubmit(values) {
         setIsLoading(true);
-        onAddItem(values);
-        setIsLoading(false);
-        onOpenChange(false);
-        form.reset();
+        try {
+            await onAddItem(values);
+            console.log('Grocery item added successfully');
+            onOpenChange(false);
+            form.reset();
+        } catch (error) {
+            console.error('Failed to add grocery item:', error);
+            const description = error instanceof Error ? error.message : 'Please try again.';
+            toast({
+                title: 'Unable to add item',
+                description,
+                variant: 'destructive'
+            });
+        } finally{
+            setIsLoading(false);
+        }
     }
     const handleDialogClose = (isOpen)=>{
         if (!isOpen) {
@@ -542,20 +554,20 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                             children: "Add Grocery Item"
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                            lineNumber: 118,
+                            lineNumber: 130,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogDescription"], {
                             children: "Enter the details for the new item on your list. AI will try to help you fill it out."
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                            lineNumber: 119,
+                            lineNumber: 131,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                    lineNumber: 117,
+                    lineNumber: 129,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Form"], {
@@ -573,7 +585,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                 children: "Item Name"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                lineNumber: 130,
+                                                lineNumber: 142,
                                                 columnNumber: 19
                                             }, void 0),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -583,7 +595,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                         className: "absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 132,
+                                                        lineNumber: 144,
                                                         columnNumber: 21
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormControl"], {
@@ -593,34 +605,34 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                             className: "pl-10"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                            lineNumber: 134,
+                                                            lineNumber: 146,
                                                             columnNumber: 23
                                                         }, void 0)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 133,
+                                                        lineNumber: 145,
                                                         columnNumber: 21
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                lineNumber: 131,
+                                                lineNumber: 143,
                                                 columnNumber: 20
                                             }, void 0),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {}, void 0, false, {
                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                lineNumber: 137,
+                                                lineNumber: 149,
                                                 columnNumber: 19
                                             }, void 0)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                        lineNumber: 129,
+                                        lineNumber: 141,
                                         columnNumber: 17
                                     }, void 0)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                lineNumber: 125,
+                                lineNumber: 137,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormField"], {
@@ -632,7 +644,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                 children: "Brand (Optional)"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                lineNumber: 146,
+                                                lineNumber: 158,
                                                 columnNumber: 19
                                             }, void 0),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -642,7 +654,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                         className: "absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 148,
+                                                        lineNumber: 160,
                                                         columnNumber: 21
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormControl"], {
@@ -652,34 +664,34 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                             className: "pl-10"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                            lineNumber: 150,
+                                                            lineNumber: 162,
                                                             columnNumber: 23
                                                         }, void 0)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 149,
+                                                        lineNumber: 161,
                                                         columnNumber: 21
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                lineNumber: 147,
+                                                lineNumber: 159,
                                                 columnNumber: 19
                                             }, void 0),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {}, void 0, false, {
                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                lineNumber: 153,
+                                                lineNumber: 165,
                                                 columnNumber: 19
                                             }, void 0)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                        lineNumber: 145,
+                                        lineNumber: 157,
                                         columnNumber: 17
                                     }, void 0)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                lineNumber: 141,
+                                lineNumber: 153,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -694,7 +706,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                         children: "Quantity"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 163,
+                                                        lineNumber: 175,
                                                         columnNumber: 21
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -704,7 +716,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                 className: "absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                lineNumber: 165,
+                                                                lineNumber: 177,
                                                                 columnNumber: 23
                                                             }, void 0),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormControl"], {
@@ -715,34 +727,34 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                     className: "pl-10"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                    lineNumber: 167,
+                                                                    lineNumber: 179,
                                                                     columnNumber: 25
                                                                 }, void 0)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                lineNumber: 166,
+                                                                lineNumber: 178,
                                                                 columnNumber: 23
                                                             }, void 0)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 164,
+                                                        lineNumber: 176,
                                                         columnNumber: 21
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {}, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 170,
+                                                        lineNumber: 182,
                                                         columnNumber: 21
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                lineNumber: 162,
+                                                lineNumber: 174,
                                                 columnNumber: 19
                                             }, void 0)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                        lineNumber: 158,
+                                        lineNumber: 170,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormField"], {
@@ -754,7 +766,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                         children: "Unit"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 179,
+                                                        lineNumber: 191,
                                                         columnNumber: 21
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -768,17 +780,17 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                         placeholder: "Select a unit"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                        lineNumber: 183,
+                                                                        lineNumber: 195,
                                                                         columnNumber: 29
                                                                     }, void 0)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                    lineNumber: 182,
+                                                                    lineNumber: 194,
                                                                     columnNumber: 27
                                                                 }, void 0)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                lineNumber: 181,
+                                                                lineNumber: 193,
                                                                 columnNumber: 25
                                                             }, void 0),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -788,7 +800,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                         children: "pieces"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                        lineNumber: 187,
+                                                                        lineNumber: 199,
                                                                         columnNumber: 27
                                                                     }, void 0),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -796,7 +808,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                         children: "kg"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                        lineNumber: 188,
+                                                                        lineNumber: 200,
                                                                         columnNumber: 27
                                                                     }, void 0),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -804,7 +816,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                         children: "g"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                        lineNumber: 189,
+                                                                        lineNumber: 201,
                                                                         columnNumber: 27
                                                                     }, void 0),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -812,7 +824,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                         children: "liters"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                        lineNumber: 190,
+                                                                        lineNumber: 202,
                                                                         columnNumber: 27
                                                                     }, void 0),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -820,7 +832,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                         children: "ml"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                        lineNumber: 191,
+                                                                        lineNumber: 203,
                                                                         columnNumber: 27
                                                                     }, void 0),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -828,7 +840,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                         children: "pack"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                        lineNumber: 192,
+                                                                        lineNumber: 204,
                                                                         columnNumber: 27
                                                                     }, void 0),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -836,35 +848,35 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                         children: "dozen"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                        lineNumber: 193,
+                                                                        lineNumber: 205,
                                                                         columnNumber: 28
                                                                     }, void 0)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                lineNumber: 186,
+                                                                lineNumber: 198,
                                                                 columnNumber: 25
                                                             }, void 0)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 180,
+                                                        lineNumber: 192,
                                                         columnNumber: 22
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {}, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 196,
+                                                        lineNumber: 208,
                                                         columnNumber: 21
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                lineNumber: 178,
+                                                lineNumber: 190,
                                                 columnNumber: 19
                                             }, void 0)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                        lineNumber: 174,
+                                        lineNumber: 186,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormField"], {
@@ -880,7 +892,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 205,
+                                                        lineNumber: 217,
                                                         columnNumber: 21
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -891,7 +903,7 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                 children: currency
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                lineNumber: 207,
+                                                                lineNumber: 219,
                                                                 columnNumber: 24
                                                             }, void 0),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormControl"], {
@@ -903,40 +915,40 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                                                     className: "pl-12"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                    lineNumber: 209,
+                                                                    lineNumber: 221,
                                                                     columnNumber: 25
                                                                 }, void 0)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                                lineNumber: 208,
+                                                                lineNumber: 220,
                                                                 columnNumber: 23
                                                             }, void 0)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 206,
+                                                        lineNumber: 218,
                                                         columnNumber: 21
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {}, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 224,
                                                         columnNumber: 21
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                                lineNumber: 204,
+                                                lineNumber: 216,
                                                 columnNumber: 19
                                             }, void 0)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                        lineNumber: 200,
+                                        lineNumber: 212,
                                         columnNumber: 16
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                lineNumber: 157,
+                                lineNumber: 169,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogFooter"], {
@@ -948,48 +960,48 @@ function AddGroceryItemDialog({ open, onOpenChange, onAddItem }) {
                                             className: "mr-2 h-4 w-4 animate-spin"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                            lineNumber: 219,
+                                            lineNumber: 231,
                                             columnNumber: 31
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"], {
                                             className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("mr-2 h-4 w-4", isSuggesting ? "animate-spin" : "text-accent")
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                            lineNumber: 220,
+                                            lineNumber: 232,
                                             columnNumber: 17
                                         }, this),
                                         "Add to List"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                    lineNumber: 218,
+                                    lineNumber: 230,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                                lineNumber: 217,
+                                lineNumber: 229,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                        lineNumber: 124,
+                        lineNumber: 136,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-                    lineNumber: 123,
+                    lineNumber: 135,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-            lineNumber: 116,
+            lineNumber: 128,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/dashboard/add-grocery-item-dialog.tsx",
-        lineNumber: 115,
+        lineNumber: 127,
         columnNumber: 5
     }, this);
 }
@@ -1025,6 +1037,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-client] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$family$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/context/family-context.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$dashboard$2f$add$2d$grocery$2d$item$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/dashboard/add-grocery-item-dialog.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$app$2d$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/store/app-store.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$repositories$2f$groceryItems$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/repositories/groceryItems.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$toast$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/use-toast.ts [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -1036,73 +1051,99 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const initialItems = [
-    {
-        id: 1,
-        name: 'Milk',
-        checked: false,
-        quantity: 1,
-        unit: 'ltr',
-        brand: 'Highland',
-        price: 2.50
-    },
-    {
-        id: 2,
-        name: 'Bread',
-        checked: true,
-        quantity: 1,
-        unit: 'pcs',
-        price: 1.80
-    },
-    {
-        id: 3,
-        name: 'Eggs',
-        checked: false,
-        quantity: 12,
-        unit: 'pcs',
-        brand: 'Happy Farms',
-        price: 0.35
-    },
-    {
-        id: 4,
-        name: 'Apples',
-        checked: false,
-        quantity: 2,
-        unit: 'kg',
-        price: 3.00
-    }
-];
+;
+;
+;
 function GroceryList() {
     _s();
     const { selectedFamily, currency } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$family$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFamily"])();
-    const [items, setItems] = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useState(initialItems);
+    const { toast } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$toast$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useToast"])();
+    const items = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$app$2d$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAppStore"])({
+        "GroceryList.useAppStore[items]": (s)=>s.items
+    }["GroceryList.useAppStore[items]"]);
+    const setActiveFamily = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$app$2d$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAppStore"])({
+        "GroceryList.useAppStore[setActiveFamily]": (s)=>s.setActiveFamily
+    }["GroceryList.useAppStore[setActiveFamily]"]);
     const [isAddDialogOpen, setAddDialogOpen] = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useState(false);
-    const handleAddItem = (newItem)=>{
-        const newItemObject = {
-            id: Date.now(),
-            ...newItem,
-            checked: false
-        };
-        setItems((prev)=>[
-                newItemObject,
-                ...prev
-            ]);
+    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useEffect({
+        "GroceryList.useEffect": ()=>{
+            if (selectedFamily) {
+                setActiveFamily(selectedFamily.id);
+            }
+        }
+    }["GroceryList.useEffect"], [
+        selectedFamily?.id,
+        setActiveFamily
+    ]);
+    const handleAddItem = async (newItem)=>{
+        if (!selectedFamily) {
+            toast({
+                title: 'Select a family first',
+                description: 'Please choose a family before adding items.',
+                variant: 'destructive'
+            });
+            throw new Error('No family selected');
+        }
+        try {
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$repositories$2f$groceryItems$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["addItem"])({
+                familyId: selectedFamily.id,
+                name: newItem.name,
+                quantity: newItem.quantity,
+                unit: newItem.unit,
+                brand: newItem.brand,
+                price: newItem.price,
+                checked: false
+            });
+            toast({
+                title: 'Item added',
+                description: `${newItem.name} added to the list.`
+            });
+        } catch (error) {
+            throw error;
+        }
     };
-    const handleToggleItem = (itemId)=>{
-        setItems((prev)=>prev.map((item)=>item.id === itemId ? {
-                    ...item,
-                    checked: !item.checked
-                } : item));
+    const handleToggleItem = async (itemId)=>{
+        const item = items.find((i)=>i.id === itemId);
+        if (!item) return;
+        try {
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$repositories$2f$groceryItems$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateItem"])(itemId, {
+                checked: !item.checked
+            });
+        } catch (error) {
+            toast({
+                title: 'Failed to update item',
+                description: 'Could not toggle item status.',
+                variant: 'destructive'
+            });
+        }
     };
-    const handleRemoveItem = (itemId)=>{
-        setItems((prev)=>prev.filter((item)=>item.id !== itemId));
+    const handleRemoveItem = async (itemId)=>{
+        try {
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$repositories$2f$groceryItems$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["deleteItem"])(itemId);
+            toast({
+                title: 'Item removed'
+            });
+        } catch (error) {
+            toast({
+                title: 'Failed to remove item',
+                description: 'Please try again.',
+                variant: 'destructive'
+            });
+        }
     };
-    const handleQuantityChange = (itemId, newQuantity)=>{
+    const handleQuantityChange = async (itemId, newQuantity)=>{
         if (isNaN(newQuantity) || newQuantity < 0) return;
-        setItems((prev)=>prev.map((item)=>item.id === itemId ? {
-                    ...item,
-                    quantity: newQuantity
-                } : item));
+        try {
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$repositories$2f$groceryItems$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["updateItem"])(itemId, {
+                quantity: newQuantity
+            });
+        } catch (error) {
+            toast({
+                title: 'Failed to update quantity',
+                description: 'Please try again.',
+                variant: 'destructive'
+            });
+        }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
@@ -1123,20 +1164,20 @@ function GroceryList() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                            lineNumber: 63,
+                                            lineNumber: 86,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
                                             children: "Here's what we need from the store. Add items or check them off as you shop."
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                            lineNumber: 66,
+                                            lineNumber: 89,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                    lineNumber: 62,
+                                    lineNumber: 85,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1146,25 +1187,25 @@ function GroceryList() {
                                             className: "mr-2 h-4 w-4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                            lineNumber: 69,
+                                            lineNumber: 92,
                                             columnNumber: 29
                                         }, this),
                                         " Add Item"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                    lineNumber: 68,
+                                    lineNumber: 91,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                            lineNumber: 61,
+                            lineNumber: 84,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                        lineNumber: 60,
+                        lineNumber: 83,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -1177,12 +1218,12 @@ function GroceryList() {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$checkbox$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Checkbox"], {
                                                 id: `item-${item.id}`,
-                                                checked: item.checked,
+                                                checked: Boolean(item.checked),
                                                 onCheckedChange: ()=>handleToggleItem(item.id),
                                                 className: "h-5 w-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                lineNumber: 78,
+                                                lineNumber: 101,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1193,7 +1234,7 @@ function GroceryList() {
                                                         children: item.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                        lineNumber: 85,
+                                                        lineNumber: 108,
                                                         columnNumber: 41
                                                     }, this),
                                                     item.brand && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1201,13 +1242,13 @@ function GroceryList() {
                                                         children: item.brand
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                        lineNumber: 89,
+                                                        lineNumber: 112,
                                                         columnNumber: 45
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                lineNumber: 84,
+                                                lineNumber: 107,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1218,12 +1259,12 @@ function GroceryList() {
                                                         value: item.quantity,
                                                         onChange: (e)=>handleQuantityChange(item.id, parseFloat(e.target.value)),
                                                         className: "h-9 w-20 text-center",
-                                                        disabled: item.checked,
+                                                        disabled: Boolean(item.checked),
                                                         min: "0",
                                                         step: "0.1"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                        lineNumber: 95,
+                                                        lineNumber: 118,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1231,13 +1272,13 @@ function GroceryList() {
                                                         children: item.unit
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                        lineNumber: 104,
+                                                        lineNumber: 127,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                lineNumber: 94,
+                                                lineNumber: 117,
                                                 columnNumber: 37
                                             }, this),
                                             item.price && item.price > 0 && item.quantity > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1249,13 +1290,13 @@ function GroceryList() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                lineNumber: 107,
+                                                lineNumber: 130,
                                                 columnNumber: 41
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "w-24"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                lineNumber: 111,
+                                                lineNumber: 134,
                                                 columnNumber: 41
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1267,46 +1308,46 @@ function GroceryList() {
                                                     className: "h-4 w-4 text-muted-foreground"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                    lineNumber: 114,
+                                                    lineNumber: 137,
                                                     columnNumber: 41
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                                lineNumber: 113,
+                                                lineNumber: 136,
                                                 columnNumber: 37
                                             }, this)
                                         ]
                                     }, item.id, true, {
                                         fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                        lineNumber: 77,
+                                        lineNumber: 100,
                                         columnNumber: 33
                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "text-center text-muted-foreground py-8",
                                     children: "Your grocery list is empty. Add an item to get started!"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                    lineNumber: 118,
+                                    lineNumber: 141,
                                     columnNumber: 33
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                                lineNumber: 75,
+                                lineNumber: 98,
                                 columnNumber: 25
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                            lineNumber: 74,
+                            lineNumber: 97,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                        lineNumber: 73,
+                        lineNumber: 96,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                lineNumber: 59,
+                lineNumber: 82,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$dashboard$2f$add$2d$grocery$2d$item$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AddGroceryItemDialog"], {
@@ -1315,15 +1356,18 @@ function GroceryList() {
                 onAddItem: handleAddItem
             }, void 0, false, {
                 fileName: "[project]/src/components/dashboard/grocery-list.tsx",
-                lineNumber: 126,
+                lineNumber: 149,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true);
 }
-_s(GroceryList, "REoM3CxuNKcS50jm4hGMlEzIeUc=", false, function() {
+_s(GroceryList, "h9VBBl56yTB/H31xt8PIqU1s+Qs=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$family$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFamily"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$family$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useFamily"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$toast$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useToast"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$app$2d$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAppStore"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$app$2d$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAppStore"]
     ];
 });
 _c = GroceryList;

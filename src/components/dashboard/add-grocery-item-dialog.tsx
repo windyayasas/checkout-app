@@ -35,7 +35,7 @@ export type GroceryItemFormValues = z.infer<typeof formSchema>;
 interface AddGroceryItemDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onAddItem: (item: GroceryItemFormValues) => void;
+  onAddItem: (item: GroceryItemFormValues) => Promise<void> | void;
 }
 
 export function AddGroceryItemDialog({ open, onOpenChange, onAddItem }: AddGroceryItemDialogProps) {
@@ -98,10 +98,22 @@ export function AddGroceryItemDialog({ open, onOpenChange, onAddItem }: AddGroce
 
   async function onSubmit(values: GroceryItemFormValues) {
     setIsLoading(true);
-    onAddItem(values);
-    setIsLoading(false);
-    onOpenChange(false);
-    form.reset();
+    try {
+      await onAddItem(values);
+      console.log('Grocery item added successfully');
+      onOpenChange(false);
+      form.reset();
+    } catch (error) {
+      console.error('Failed to add grocery item:', error);
+      const description = error instanceof Error ? error.message : 'Please try again.';
+      toast({
+        title: 'Unable to add item',
+        description,
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
   
   const handleDialogClose = (isOpen: boolean) => {

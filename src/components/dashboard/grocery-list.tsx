@@ -8,49 +8,72 @@ import { Input } from "@/components/ui/input";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useFamily } from '@/context/family-context';
 import { AddGroceryItemDialog, GroceryItemFormValues } from './add-grocery-item-dialog';
+import { useAppStore } from '@/store/app-store';
+import { addItem, deleteItem, updateItem } from '@/repositories/groceryItems';
+import { useToast } from '@/hooks/use-toast';
 
-interface Item {
-    id: number;
-    name: string;
-    checked: boolean;
-    quantity: number;
-    unit: string;
-    brand?: string;
-    price?: number;
-}
-
-const initialItems: Item[] = [
-    { id: 1, name: 'Milk', checked: false, quantity: 1, unit: 'ltr', brand: 'Highland', price: 2.50 },
-    { id: 2, name: 'Bread', checked: true, quantity: 1, unit: 'pcs', price: 1.80 },
-    { id: 3, name: 'Eggs', checked: false, quantity: 12, unit: 'pcs', brand: 'Happy Farms', price: 0.35 },
-    { id: 4, name: 'Apples', checked: false, quantity: 2, unit: 'kg', price: 3.00 },
-];
+// Items now come from Firestore via useAppStore (real-time subscription).
 
 export function GroceryList() {
     const { selectedFamily, currency } = useFamily();
-    const [items, setItems] = React.useState<Item[]>(initialItems);
+    const { toast } = useToast();
+    const items = useAppStore(s => s.items);
+    const setActiveFamily = useAppStore(s => s.setActiveFamily);
     const [isAddDialogOpen, setAddDialogOpen] = React.useState(false);
 
-    const handleAddItem = (newItem: GroceryItemFormValues) => {
-        const newItemObject: Item = {
-            id: Date.now(),
-            ...newItem,
-            checked: false,
-        };
-        setItems(prev => [newItemObject, ...prev]);
+    React.useEffect(() => {
+        if (selectedFamily) {
+            setActiveFamily(selectedFamily.id);
+        }
+    }, [selectedFamily?.id, setActiveFamily]);
+
+    const handleAddItem = async (newItem: GroceryItemFormValues) => {
+        if (!selectedFamily) {
+            toast({ title: 'Select a family first', description: 'Please choose a family before adding items.', variant: 'destructive' });
+            throw new Error('No family selected');
+        }
+        try {
+            await addItem({
+                familyId: selectedFamily.id,
+                name: newItem.name,
+                quantity: newItem.quantity,
+                unit: newItem.unit,
+                brand: newItem.brand,
+                price: newItem.price,
+                checked: false,
+            });
+            toast({ title: 'Item added', description: `${newItem.name} added to the list.` });
+        } catch (error) {
+            throw error;
+        }
     };
     
-    const handleToggleItem = (itemId: number) => {
-        setItems(prev => prev.map(item => item.id === itemId ? { ...item, checked: !item.checked } : item));
+    const handleToggleItem = async (itemId: string) => {
+        const item = items.find(i => i.id === itemId);
+        if (!item) return;
+        try {
+            await updateItem(itemId, { checked: !item.checked });
+        } catch (error) {
+            toast({ title: 'Failed to update item', description: 'Could not toggle item status.', variant: 'destructive' });
+        }
     };
 
-    const handleRemoveItem = (itemId: number) => {
-        setItems(prev => prev.filter(item => item.id !== itemId));
+    const handleRemoveItem = async (itemId: string) => {
+        try {
+            await deleteItem(itemId);
+            toast({ title: 'Item removed' });
+        } catch (error) {
+            toast({ title: 'Failed to remove item', description: 'Please try again.', variant: 'destructive' });
+        }
     };
 
-    const handleQuantityChange = (itemId: number, newQuantity: number) => {
+    const handleQuantityChange = async (itemId: string, newQuantity: number) => {
         if (isNaN(newQuantity) || newQuantity < 0) return;
-        setItems(prev => prev.map(item => item.id === itemId ? { ...item, quantity: newQuantity } : item));
+        try {
+            await updateItem(itemId, { quantity: newQuantity });
+        } catch (error) {
+            toast({ title: 'Failed to update quantity', description: 'Please try again.', variant: 'destructive' });
+        }
     };
 
 
@@ -77,7 +100,7 @@ export function GroceryList() {
                                 <li key={item.id} className="flex items-center gap-4 rounded-lg border p-3 transition-colors hover:bg-muted/50">
                                     <Checkbox 
                                         id={`item-${item.id}`} 
-                                        checked={item.checked} 
+                                        checked={Boolean(item.checked)}
                                         onCheckedChange={() => handleToggleItem(item.id)}
                                         className="h-5 w-5"
                                     />
@@ -97,7 +120,7 @@ export function GroceryList() {
                                             value={item.quantity}
                                             onChange={(e) => handleQuantityChange(item.id, parseFloat(e.target.value))}
                                             className="h-9 w-20 text-center"
-                                            disabled={item.checked}
+                                            disabled={Boolean(item.checked)}
                                             min="0"
                                             step="0.1"
                                         />

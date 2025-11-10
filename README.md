@@ -27,6 +27,9 @@ src/
   context/                     # React context (family, currency, etc.)
   hooks/                       # Reusable hooks
   lib/                         # Utilities/helpers
+  repositories/                # Firestore data access (families, items, invitations, members)
+  store/                       # Zustand centralized app state
+  docs/                        # Additional documentation (rules, architecture)
 ```
 
 ## 🚀 Getting Started
@@ -61,15 +64,20 @@ npm run typecheck
 ## 🔐 Environment Variables
 Create `.env.local` in project root:
 ```env
-# Required for AI
+# Required for AI (Gemini / Google Generative AI)
 GEMINI_API_KEY=YOUR_REAL_KEY
-# or (alternative)
+# OR
 # GOOGLE_API_KEY=YOUR_REAL_KEY
 
-# (Future example placeholders)
-# NEXT_PUBLIC_FIREBASE_API_KEY=...
-# NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
-# NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
+# Firebase (Firestore + optional future services)
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-app.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-app-id
+# Optional extras (if used):
+# NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-app.appspot.com
+# NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=1234567890
+# NEXT_PUBLIC_FIREBASE_APP_ID=1:1234567890:web:abcdef123456
+# NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 Restart dev server after editing env vars.
 
@@ -98,27 +106,32 @@ export async function GET() { return Response.json(await aiHealthCheck()); }
 Expect `{ hasKey: true, model: "googleai/gemini-2.0-flash" }`.
 
 ## 🧭 Roadmap (Ideas)
-- Real authentication (NextAuth / Firebase)
-- Database persistence (PostgreSQL / Firestore / Supabase)
-- Offline-first / PWA
+- Real authentication (Firebase Auth / NextAuth)
+- Firestore persistence (families, items, invitations)
+- Offline-first / PWA (service worker + caching)
 - Price history & analytics
 - Batch AI optimization for entire list
 - Localization & unit conversions
-- Role-based permissions
+- Role-based permissions & Firestore security rules
+- Optimistic UI + conflict resolution for real-time edits
 
 ## 🩺 Troubleshooting
-| Problem                                                        | Cause                            | Fix |
-| -------------------------------------------------------------- | -------------------------------- | --- |
-| FAILED_PRECONDITION (API key)                                  | Missing env var                  | Add `GEMINI_API_KEY` + restart |
-| AI suggestions empty                                           | Model output filtered / schema   | Log raw response, relax prompt |
-| Styles not applied                                             | Missing global import            | Confirm `globals.css` in `app/layout.tsx` |
-| Module not found after rename                                  | Stale build cache                | Delete `.next/` and rerun dev |
-| Env var still undefined                                        | Not restarted / wrong filename   | Use `.env.local`, restart terminal |
+| Problem                                   | Cause                               | Fix |
+| ----------------------------------------- | ----------------------------------- | --- |
+| FAILED_PRECONDITION (API key)             | Missing env var                     | Add `GEMINI_API_KEY` + restart |
+| AI suggestions empty                      | Model output filtered / schema      | Log raw response, adjust prompt |
+| Styles not applied                        | Missing global import                | Confirm `globals.css` in `app/layout.tsx` |
+| Module not found after rename             | Stale build cache                    | Delete `.next/` and rerun dev |
+| Env var still undefined                   | Not restarted / wrong filename       | Use `.env.local`, restart terminal |
+| Firestore permission denied               | Rules block access                   | Update Firestore security rules |
+| Firestore env error                       | Missing NEXT_PUBLIC_FIREBASE_* vars | Add required Firebase vars, restart |
 
 ## 🛡 Security
-- Keep API keys server-only (never in client bundles).
-- Validate & sanitize user input before persistence (once DB added).
-- Limit future external calls with rate limiting/caching.
+- Keep Gemini API keys server-only (never in client bundles).
+- Validate & sanitize user input before persistence.
+- Firestore Rules: restrict reads/writes by membership (e.g. familyMembers collection). Deny unless user is member.
+- Limit external calls with rate limiting/caching.
+- Avoid storing sensitive secrets in NEXT_PUBLIC_* (those are exposed to client). Use server-only vars for future secure ops.
 
 ## 🤝 Contributing
 1. Branch from `main`
